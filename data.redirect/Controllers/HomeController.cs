@@ -32,6 +32,7 @@ namespace data.redirect.Controllers
             //http://data.geonorge.no/matrikkel/so/123456
             //http://data.geonorge.no/matrikkel/so/adresse.123456
             //http://data.geonorge.no/matrikkel/adresse/so/123456   (IKKE LOV???)
+            //http://data.geonorge.no/kartverket/matrikkel/so/adresse.123456 (IKKE LOV)
             //http://data.geonorge.no/nilu/so/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0
             //http://data.geonorge.no/sportsfiskeregister/so/innlandsfisk.123456789
             //http://data.geonorge.no/so/akvakulturlokaliteter/lokalitet.35553312 (IKKE LOV)
