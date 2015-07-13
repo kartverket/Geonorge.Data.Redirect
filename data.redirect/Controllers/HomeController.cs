@@ -22,10 +22,11 @@ namespace data.redirect.Controllers
         /// <param name="objecttype"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("{register}/so/{lokalid}")]
-        [Route("{register}/so/{objekttype}.{lokalid}")]
+        
+        //[Route("{register}/so/{objekttype}.{lokalid}")]
         [Route("{register}/so/{objekttype}/{lokalid}")]
         [Route("{register}/so/{objekttype}/{lokalid}/{versjon}")]
+        [Route("{register}/so/{*lokalid}")]
         public ActionResult ShowRedirect(string register, string objekttype, string lokalid, string versjon)
         {
             //http://data.geonorge.no/matrikkel/so/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0
@@ -44,7 +45,7 @@ namespace data.redirect.Controllers
             //Løse redirect url
             //gml_ID=lokalitet.35553312 = {register}/so/{objekttype}.{lokalid}
             //gml_ID=35553312 = {register}/so/{lokalid} og {register}/so/{objekttype}/{lokalid}
-            return Redirect("http://wfs.fiskeridirektoratet.no/arcgis/services/akvakultur/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=lokalitet.35553312");
+            return Redirect("http://wfs.fiskeridirektoratet.no/arcgis/services/akvakultur/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=" + lokalid);
            
         }
     }
