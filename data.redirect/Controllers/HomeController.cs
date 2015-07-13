@@ -23,7 +23,7 @@ namespace data.redirect.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         
-        //[Route("{register}/so/{objekttype}.{lokalid}")]
+        [Route("{register}/so/{objekttype}.{lokalid}")]
         [Route("{register}/so/{objekttype}/{lokalid}")]
         [Route("{register}/so/{objekttype}/{lokalid}/{versjon}")]
         [Route("{register}/so/{*lokalid}")]
