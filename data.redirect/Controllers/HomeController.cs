@@ -47,6 +47,8 @@ namespace data.redirect.Controllers
             //Slå opp i namespace register med domene + /so/ + register for å finne tjeneste som skal redirectes til
 
             string redirectServiceUrl = GetServiceUrlFromNamespaceRegister(@namepace);
+
+            redirectServiceUrl = redirectServiceUrl.Replace("request=GetCapabilities", "request=GetFeature") + "&gml_ID=" + localId;
             return Redirect(redirectServiceUrl);
 
             //Løse redirect url
