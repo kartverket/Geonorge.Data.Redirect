@@ -63,7 +63,7 @@ namespace data.redirect.Controllers
 
         private string FixServiceUrl(string redirectServiceUrl, string localId, string versionId)
         {
-            string version = "";
+            //string version = "";
 
             //Endre GetCapabilities til GetFeature
             redirectServiceUrl = redirectServiceUrl.Replace("request=GetCapabilities", "request=GetFeature")
@@ -71,30 +71,30 @@ namespace data.redirect.Controllers
                                                    .Replace("request=getcapabilities", "request=GetFeature")
                                                    + "&gml_ID=" + localId;
 
-            //Sett inn eller bytt ut versjonsId
-            if (versionId != null)
-            {
-                if (redirectServiceUrl.ToLower().Contains("&version="))
-                {
-                    string[] splittedServiceUrl;
-                    bool oppdatertVersionsId = false;
-                    splittedServiceUrl = redirectServiceUrl.Split('&');
-                    foreach (string item in splittedServiceUrl)
-                    {
-                        if (item.Contains("version="))
-                        {
-                            version = item;
-                            redirectServiceUrl = redirectServiceUrl.ToLower().TrimStart().Replace(version, "version=" + versionId);
-                            oppdatertVersionsId = true;
-                            break;
-                        }
-                    }
-                    if (oppdatertVersionsId == false)
-                    {
-                        redirectServiceUrl += "&version=" + versionId;
-                    }
-                }
-            }
+            ////Sett inn eller bytt ut versjonsId
+            //if (versionId != null)
+            //{
+            //    if (redirectServiceUrl.ToLower().Contains("&version="))
+            //    {
+            //        string[] splittedServiceUrl;
+            //        bool oppdatertVersionsId = false;
+            //        splittedServiceUrl = redirectServiceUrl.Split('&');
+            //        foreach (string item in splittedServiceUrl)
+            //        {
+            //            if (item.Contains("version="))
+            //            {
+            //                version = item;
+            //                redirectServiceUrl = redirectServiceUrl.ToLower().TrimStart().Replace(version, "version=" + versionId);
+            //                oppdatertVersionsId = true;
+            //                break;
+            //            }
+            //        }
+            //        if (oppdatertVersionsId == false)
+            //        {
+            //            redirectServiceUrl += "&version=" + versionId;
+            //        }
+            //    }
+            //}
             return redirectServiceUrl;
         }
 
