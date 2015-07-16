@@ -120,7 +120,6 @@ namespace data.redirect.Controllers
             {
                 if (item["label"].ToString().Contains(ns))
                 {
-
                     return item["serviceUrl"].ToString();
                 }
             }
