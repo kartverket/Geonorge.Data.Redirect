@@ -4,10 +4,10 @@
 
 
     <h1>data.geonorge.no</h1>
-    <p class="lead" style="font-size:18px">Løser ID referanser for kjente navnerom i <a href="https://register.dev.geonorge.no/register/navnerom">navnerom registeret</a></p>
+    <p class="lead">Løser ID referanser for kjente navnerom i <a href="https://register.dev.geonorge.no/register/navnerom">navnerom registeret</a></p>
 
     <br/>
-    <h2 style="font-size:25px">Lovlige utforminger av urler</h2>
+    <h2>Lovlige utforminger av urler</h2>
     <table class="table-responsive table-striped">
         
         <tr>
@@ -27,4 +27,39 @@
         </tr>
 
     </table>
+    <br />
+    <h2>Mapping til WFS kall</h2>
+    <table class="table-responsive table-striped">
+
+        <tr>
+            <td>
+                WFS 1.1.0 http://data.geonorge.no/so/{namepace}/{localId} -> http://WFSServer?version=1.1.0&request=GetFeature&gml_ID={localId} 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                WFS 2.0 http://data.geonorge.no/so/{namepace}/{localId} -> http://WFSServer?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={localId} 
+            </td>
+        </tr>
+    </table>
+
+    <h2>Eksempel</h2>
+    <p>Bruk av InpireId og Identifikasjon</p>
+    
+<pre>
+    &lt;elf-au:administrativeunit gml:id="ELF-LOD1AU_ADMINISTRATIVEUNIT_705611"&gt
+        ...
+        &lt;au:inspireid&gt
+            &lt;base:identifier&gt
+                &lt;base:localid&gt172826&lt;/base:localid&gt
+                &lt;base:namespace&gthttp://data.geonorge.no/so/AdmEnheterNorge&lt;/base:namespace&gt
+                &lt;base:versionid nilreason="missing" /&gt
+            &lt;/base:identifier&gt
+        &lt;/au:inspireid&gt
+        ...
+        &lt;au:upperlevelunit xlink:href="http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705933" /&gt
+    &lt;/elf-au:administrativeunit&gt
+</pre>
+      
+      <p>For å hente dette objektet vil url se ut slik: <a href="http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611">http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611</a></p>
 </div>
