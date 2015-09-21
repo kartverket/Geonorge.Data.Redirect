@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace data.redirect.Controllers
 {
@@ -40,14 +42,13 @@ namespace data.redirect.Controllers
             //http://data.geonorge.no/so/nilu/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0 Lik som den første...
             //http://data.geonorge.no/so/sportsfiskeregister/innlandsfisk.123456789
             //http://data.geonorge.no/so/akvakulturlokaliteter/lokalitet.35553312 
-
             //http://data.geonorge.no/matrikkel/adresse/so/123456   (IKKE LOV???)
             //http://data.geonorge.no/kartverket/matrikkel/so/adresse.123456 (IKKE LOV)
             //http://data.geonorge.no/akvakulturlokaliteter/so/lokalitet.35553312 (IKKE LOV)= http://wfs.fiskeridirektoratet.no/arcgis/services/akvakultur/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=lokalitet.35553312
             //http://data.geonorge.no/naturbase/so/naturvernområder/62883310 (IKKE LOV)= http://wfs.miljodirektoratet.no/arcgis/services/vern/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=62883310
 
             //Slå opp i namespace register med domene + /so/ + register for å finne tjeneste som skal redirectes til
-            string redirectServiceUrl = GetServiceUrlFromNamespaceRegister(@namepace, @class, @theme);
+            string redirectServiceUrl = GetServiceUrlFromNamespaceRegister(@namepace, @class, @theme, localId);
             if (redirectServiceUrl != null)
             {
                 redirectServiceUrl = FixServiceUrl(redirectServiceUrl, localId, versionId);
@@ -58,32 +59,37 @@ namespace data.redirect.Controllers
             //gml_ID=lokalitet.35553312 = {register}/so/{objekttype}.{lokalid}
             //gml_ID=35553312 = {register}/so/{lokalid} og {register}/so/{objekttype}/{lokalid}
             //return Redirect("http://wfs.fiskeridirektoratet.no/arcgis/services/akvakultur/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=" + localId);
-
         }
 
         private string FixServiceUrl(string redirectServiceUrl, string localId, string versionId)
         {
-            //Endre GetCapabilities til GetFeature
-            
-            if (redirectServiceUrl.ToLower().Contains("version=2.0.0"))
+            XNamespace WFS = "http://www.opengis.net/wfs";
+            XDocument xmlDocument = XDocument.Load(redirectServiceUrl);
+            WFS = xmlDocument.Root.Name.Namespace;
+            XElement root = xmlDocument.Element(WFS + "WFS_Capabilities");
+
+            string version = root.Attribute("version").Value;
+
+            if (version == "2.0.0")
             {
                 redirectServiceUrl = redirectServiceUrl.Replace("request=GetCapabilities", "REQUEST=GetFeature")
                                                        .Replace("REQUEST=GetCapabilities", "REQUEST=GetFeature")
                                                        .Replace("request=getcapabilities", "REQUEST=GetFeature")
-                                                       + "&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={" + localId + "}"; 
+                                                       .Replace("service=", "SERVICE=")
+                                                       + "&VERSION=" + version
+                                                       + "&OUTPUTFORMAT=application%2Fgml%2Bxml%3B+version%3D3.2&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID=" + localId;
             }
             else
             {
                 redirectServiceUrl = redirectServiceUrl.Replace("request=GetCapabilities", "request=GetFeature")
-                                                   .Replace("REQUEST=GetCapabilities", "request=GetFeature")
-                                                   .Replace("request=getcapabilities", "request=GetFeature")
-                                                    + "&gml_ID=" + localId;
+                                                       .Replace("REQUEST=GetCapabilities", "request=GetFeature")
+                                                       .Replace("request=getcapabilities", "request=GetFeature")
+                                                        + "&gml_ID=" + localId;
             }
-
             return redirectServiceUrl;
         }
 
-        public string GetServiceUrlFromNamespaceRegister(string @namespace, string @class, string theme)
+        public string GetServiceUrlFromNamespaceRegister(string @namespace, string @class, string theme, string localId)
         {
             string ns = @namespace;
             if (!string.IsNullOrWhiteSpace(theme))
