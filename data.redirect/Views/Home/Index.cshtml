@@ -12,17 +12,17 @@
         
         <tr>
             <td>
-                http://data.geonorge.no/so/{namepace}/{localId}
+                http://data.geonorge.no/{namepace}/so/{localId}
             </td>
         </tr>
         <tr>
             <td>
-                http://data.geonorge.no/so/{namepace}/{localId}/{versionId}
+                http://data.geonorge.no/{namepace}/so/{localId}/{versionId}
             </td>
         </tr>
         <tr>
             <td>
-                http://data.geonorge.no/so/{namepace}/{theme}/{class}/{localId}/{versionId}
+                http://data.geonorge.no/{namepace}/so/{theme}/{class}/{localId}/{versionId}
             </td>
         </tr>
 
@@ -33,12 +33,12 @@
 
         <tr>
             <td>
-                WFS 1.1.0 http://data.geonorge.no/so/{namepace}/{localId} -> http://WFSServer?version=1.1.0&request=GetFeature&gml_ID={localId} 
+                WFS 1.1.0 http://data.geonorge.no/{namepace}/so/{localId} -> http://WFSServer?version=1.1.0&request=GetFeature&gml_ID={localId} 
             </td>
         </tr>
         <tr>
             <td>
-                WFS 2.0 http://data.geonorge.no/so/{namepace}/{localId} -> http://wfs.geonorge.no/skwms1/wfs.elf-au?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&OUTPUTFORMAT=application%2Fgml%2Bxml%3B+version%3D3.2&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={localId}
+                WFS 2.0 http://data.geonorge.no/so/{namepace}/so/{localId} -> http://wfs.geonorge.no/skwms1/wfs.elf-au?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&OUTPUTFORMAT=application%2Fgml%2Bxml%3B+version%3D3.2&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={localId}
             </td>
         </tr>
     </table>
@@ -57,9 +57,9 @@
             &lt;/base:identifier&gt
         &lt;/au:inspireid&gt
         ...
-        &lt;au:upperlevelunit xlink:href="http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705933" /&gt
+        &lt;au:upperlevelunit xlink:href="http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705933" /&gt
     &lt;/elf-au:administrativeunit&gt
 </pre>
       
-      <p>For å hente dette objektet vil url se ut slik: <a href="http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611">http://data.geonorge.no/so/AdmEnheterNorge/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611</a></p>
+      <p>For å hente dette objektet vil url se ut slik: <a href="http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611">http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611</a></p>
 </div>

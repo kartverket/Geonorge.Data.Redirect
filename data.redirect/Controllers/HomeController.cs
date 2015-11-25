@@ -26,22 +26,22 @@ namespace data.redirect.Controllers
         /// <returns></returns>
 
 
-        [Route("so/{namepace}/{localId}")]
-        [Route("so/{namepace}/{localId}/{versionId}")]
-        //[Route("so/{namepace}/{theme}/{class}/]
-        [Route("so/{namepace}/{theme}/{class}/{localId}/{versionId}")]
-        [Route("so/{namepace}/{theme}/{class}/{*localId}")]
-        [Route("so/{namepace}/{localId}/{*versionId}")]
-        [Route("so/{namepace}/{*localId}")]
+        [Route("{namepace}/so/{localId}")]
+        [Route("so/{namepace}/so/{localId}/{versionId}")]
+        //[Route("{namepace}/{theme}/{class}/]
+        [Route("{namepace}/so/{theme}/{class}/{localId}/{versionId}")]
+        [Route("{namepace}/so/{theme}/{class}/{*localId}")]
+        [Route("{namepace}/so/{localId}/{*versionId}")]
+        [Route("{namepace}/so/{*localId}")]
         public ActionResult ShowRedirect(string @namepace, string @class, string localId, string versionId, string theme)
         {
-            //http://data.geonorge.no/so/naturbase/naturvernområder/62883310 Naturvernområde lokalId?
-            //http://data.geonorge.no/so/matrikkel/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0
-            //http://data.geonorge.no/so/matrikkel/123456
-            //http://data.geonorge.no/so/matrikkel/adresse.123456
-            //http://data.geonorge.no/so/nilu/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0 Lik som den første...
-            //http://data.geonorge.no/so/sportsfiskeregister/innlandsfisk.123456789
-            //http://data.geonorge.no/so/akvakulturlokaliteter/lokalitet.35553312 
+            //http://data.geonorge.no/naturbase/so/naturvernområder/62883310 Naturvernområde lokalId?
+            //http://data.geonorge.no/matrikkel/so/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0
+            //http://data.geonorge.no/matrikkel/so/123456
+            //http://data.geonorge.no/matrikkel/so/adresse.123456
+            //http://data.geonorge.no/nilu/so/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0 Lik som den første...
+            //http://data.geonorge.no/sportsfiskeregister/so/innlandsfisk.123456789
+            //http://data.geonorge.no/akvakulturlokaliteter/so/lokalitet.35553312 
             //http://data.geonorge.no/matrikkel/adresse/so/123456   (IKKE LOV???)
             //http://data.geonorge.no/kartverket/matrikkel/so/adresse.123456 (IKKE LOV)
             //http://data.geonorge.no/akvakulturlokaliteter/so/lokalitet.35553312 (IKKE LOV)= http://wfs.fiskeridirektoratet.no/arcgis/services/akvakultur/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=lokalitet.35553312
