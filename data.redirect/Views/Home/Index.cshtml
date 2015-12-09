@@ -1,51 +1,64 @@
 ﻿
-
+@using Kartverket.data.redirect.Helpers﻿
+@{
+    ViewBag.Title = "Identifikasjon";
+}
+<section class="heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>
+                data.geonorge.no
+            </h1>
+        </div>
+        <div class="col-sm-12">
+            <span class="separator-lg"></span>
+        </div>
+    </div>
+</section>
 <div class="row">
+    <div class="col-sm-12">
+        <p class="lead">Løser ID referanser for kjente navnerom i <a href="@Html.RegistryUrl()register/navnerom">navnerom registeret</a></p>
 
+        <br />
+        <h2>Lovlige utforminger av urler</h2>
+        <table class="table-responsive table-striped">
 
-    <h1>data.geonorge.no</h1>
-    <p class="lead">Løser ID referanser for kjente navnerom i <a href="https://register.dev.geonorge.no/register/navnerom">navnerom registeret</a></p>
+            <tr>
+                <td>
+                    http://data.geonorge.no/{namepace}/so/{localId}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    http://data.geonorge.no/{namepace}/so/{localId}/{versionId}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    http://data.geonorge.no/{namepace}/so/{theme}/{class}/{localId}/{versionId}
+                </td>
+            </tr>
 
-    <br/>
-    <h2>Lovlige utforminger av urler</h2>
-    <table class="table-responsive table-striped">
-        
-        <tr>
-            <td>
-                http://data.geonorge.no/{namepace}/so/{localId}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                http://data.geonorge.no/{namepace}/so/{localId}/{versionId}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                http://data.geonorge.no/{namepace}/so/{theme}/{class}/{localId}/{versionId}
-            </td>
-        </tr>
+        </table>
+        <br />
+        <h2>Mapping til WFS kall</h2>
+        <table class="table-responsive table-striped">
 
-    </table>
-    <br />
-    <h2>Mapping til WFS kall</h2>
-    <table class="table-responsive table-striped">
+            <tr>
+                <td>
+                    WFS 1.1.0 http://data.geonorge.no/{namepace}/so/{localId} -> http://WFSServer?version=1.1.0&request=GetFeature&gml_ID={localId}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    WFS 2.0 http://data.geonorge.no/{namepace}/so/{localId} -> http://wfs.geonorge.no/skwms1/wfs.elf-au?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&OUTPUTFORMAT=application%2Fgml%2Bxml%3B+version%3D3.2&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={localId}
+                </td>
+            </tr>
+        </table>
 
-        <tr>
-            <td>
-                WFS 1.1.0 http://data.geonorge.no/{namepace}/so/{localId} -> http://WFSServer?version=1.1.0&request=GetFeature&gml_ID={localId} 
-            </td>
-        </tr>
-        <tr>
-            <td>
-                WFS 2.0 http://data.geonorge.no/{namepace}/so/{localId} -> http://wfs.geonorge.no/skwms1/wfs.elf-au?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&OUTPUTFORMAT=application%2Fgml%2Bxml%3B+version%3D3.2&STOREDQUERY_ID=urn:ogc:def:query:OGC-WFS::GetFeatureById&ID={localId}
-            </td>
-        </tr>
-    </table>
+        <h2>Eksempel</h2>
+        <p>Bruk av InpireId og Identifikasjon</p>
 
-    <h2>Eksempel</h2>
-    <p>Bruk av InpireId og Identifikasjon</p>
-    
 <pre>
     &lt;elf-au:administrativeunit gml:id="ELF-LOD1AU_ADMINISTRATIVEUNIT_705611"&gt
         ...
@@ -60,6 +73,7 @@
         &lt;au:upperlevelunit xlink:href="http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705933" /&gt
     &lt;/elf-au:administrativeunit&gt
 </pre>
-      
-      <p>For å hente dette objektet vil url se ut slik: <a href="http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611">http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611</a></p>
+
+        <p>For å hente dette objektet vil url se ut slik: <a href="http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611">http://data.geonorge.no/AdmEnheterNorge/so/ELF-LOD1AU_ADMINISTRATIVEUNIT_705611</a></p>
+    </div>
 </div>
