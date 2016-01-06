@@ -41,6 +41,11 @@ namespace Kartverket.data.redirect.Helpers
             return WebConfigurationManager.AppSettings["KartkatalogenUrl"];
         }
 
+        public static string EnvironmentName(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["EnvironmentName"];
+        }
+
         public static string DokRegisterUrl(this HtmlHelper helper)
         {
             return WebConfigurationManager.AppSettings["DokRegisterUrl"];
