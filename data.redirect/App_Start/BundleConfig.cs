@@ -16,7 +16,7 @@ namespace data.redirect
 
             bundles.Add(new ScriptBundle("~/Content/bower_components/kartverket-felleskomponenter/assets/scripts").Include(
                "~/Content/bower_components/kartverket-felleskomponenter/assets/js/vendor.min.js",
-               "~/Content/bower_components/kartverket-felleskomponenter/assets/js/main.js"
+               "~/Content/bower_components/kartverket-felleskomponenter/assets/js/main.min.js"
            ));
         }
     }
