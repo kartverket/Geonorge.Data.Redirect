@@ -116,7 +116,7 @@ namespace data.redirect.Controllers
             var environment = WebConfigurationManager.AppSettings["EnvironmentName"];
             if (!string.IsNullOrEmpty(environment))
                 environment = "." + environment;
-            var data = c.DownloadString("https://register" + environment + ".geonorge.no/api/register/navnerom/");
+            var data = c.DownloadString("http://register" + environment + ".geonorge.no/api/register/navnerom/");
             var response = Newtonsoft.Json.Linq.JObject.Parse(data);
             var namespases = response["containeditems"];
 
