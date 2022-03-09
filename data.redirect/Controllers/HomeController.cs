@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -10,6 +11,7 @@ namespace data.redirect.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
         public ActionResult Index()
         {
             ViewBag.Title = "Forside";
@@ -33,7 +35,8 @@ namespace data.redirect.Controllers
         [Route("{namepace}/so/{theme}/{class}/{*localId}")]
         [Route("{namepace}/so/{localId}/{*versionId}")]
         [Route("{namepace}/so/{*localId}")]
-        public ActionResult ShowRedirect(string @namepace, string @class, string localId, string versionId, string theme)
+        [Route("{*path}")]
+        public ActionResult ShowRedirect(string @namepace, string @class, string localId, string versionId, string theme, string path)
         {
             //http://data.geonorge.no/naturbase/so/naturvernområder/62883310 Naturvernområde lokalId?
             //http://data.geonorge.no/matrikkel/so/1b28ec00-03ca-11e2-a21f-0800200c9a66/4.0
@@ -48,10 +51,11 @@ namespace data.redirect.Controllers
             //http://data.geonorge.no/naturbase/so/naturvernområder/62883310 (IKKE LOV)= http://wfs.miljodirektoratet.no/arcgis/services/vern/mapserver/WfSServer?&Service=wfs&version=1.1.1&request=getfeature&gml_ID=62883310
 
             //Slå opp i namespace register med domene + /so/ + register for å finne tjeneste som skal redirectes til
-            string redirectServiceUrl = GetServiceUrlFromNamespaceRegister(@namepace, @class, @theme, localId);
+            string redirectServiceUrl = GetServiceUrlFromNamespaceRegister(@namepace, @class, @theme, localId, path);
+            
             if (redirectServiceUrl != null)
             {
-                redirectServiceUrl = FixServiceUrl(redirectServiceUrl, localId, versionId);
+                //redirectServiceUrl = FixServiceUrl(redirectServiceUrl, localId, versionId);
                 return Redirect(redirectServiceUrl);
             }
             return HttpNotFound();
@@ -89,21 +93,30 @@ namespace data.redirect.Controllers
             return redirectServiceUrl;
         }
 
-        public string GetServiceUrlFromNamespaceRegister(string @namespace, string @class, string theme, string localId)
+        public string GetServiceUrlFromNamespaceRegister(string @namespace, string @class, string theme, string localId, string path)
         {
             string ns = @namespace;
-            if (!string.IsNullOrWhiteSpace(theme))
-            {
-                ns += "/" + theme;
-            }
-            if (!string.IsNullOrWhiteSpace(@class))
-            {
-                ns += "/" + @class;
+
+            if (!string.IsNullOrEmpty(path))
+                ns = path;
+            else 
+            { 
+                if (!string.IsNullOrWhiteSpace(theme))
+                {
+                    ns += "/" + theme;
+                }
+                if (!string.IsNullOrWhiteSpace(@class))
+                {
+                    ns += "/" + @class;
+                }
             }
 
             System.Net.WebClient c = new System.Net.WebClient();
             c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString("http://register.dev.geonorge.no/api/register/navnerom/");
+            var environment = WebConfigurationManager.AppSettings["EnvironmentName"];
+            if (!string.IsNullOrEmpty(environment))
+                environment = "." + environment;
+            var data = c.DownloadString("http://register" + environment + ".geonorge.no/api/register/navnerom/");
             var response = Newtonsoft.Json.Linq.JObject.Parse(data);
             var namespases = response["containeditems"];
 
