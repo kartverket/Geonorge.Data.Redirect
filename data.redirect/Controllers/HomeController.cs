@@ -133,7 +133,7 @@ namespace data.redirect.Controllers
 
                     foreach (var dataset in item["NameSpaceDatasetUrls"])
                     {
-                        if (dataset["DatasettId"].ToString().Contains(datasetId))
+                        if (dataset["DatasettId"].ToString() == datasetId)
                             if (dataset["RedirectUrl"].ToString() != "")
                                 return dataset["RedirectUrl"].ToString();
                     }
