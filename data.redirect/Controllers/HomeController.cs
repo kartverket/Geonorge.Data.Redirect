@@ -120,13 +120,30 @@ namespace data.redirect.Controllers
             var response = Newtonsoft.Json.Linq.JObject.Parse(data);
             var namespases = response["containeditems"];
 
+            var urlToNamespacRegister = "";
+
             foreach (var item in namespases)
             {
-                if (item["label"].ToString().Contains(ns))
+                var datasetId = ns.Split('/').Last();
+                var nameSpace = ns.Replace("/" + datasetId, "");
+
+                if (item["label"].ToString().Contains(nameSpace))
                 {
-                    return item["serviceUrl"].ToString();
+                    urlToNamespacRegister = item["id"].ToString();
+
+                    foreach (var dataset in item["NameSpaceDatasetUrls"])
+                    {
+                        if (dataset["DatasettId"].ToString() == datasetId)
+                            if (dataset["RedirectUrl"].ToString() != "")
+                                return dataset["RedirectUrl"].ToString();
+                    }
                 }
             }
+
+            if (!string.IsNullOrEmpty(urlToNamespacRegister))
+                return urlToNamespacRegister;
+
+
             return null;
         }
     }
