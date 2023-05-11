@@ -126,16 +126,26 @@ namespace data.redirect.Controllers
             {
                 var datasetId = ns.Split('/').Last();
                 var nameSpace = ns.Replace("/" + datasetId, "");
+                var label = item["label"].ToString();
+                var id = item["id"].ToString();
 
-                if (item["label"].ToString().Contains(nameSpace))
+                if (label.Contains(nameSpace))
                 {
-                    urlToNamespacRegister = item["id"].ToString();
+                    if (label.EndsWith(ns)) {
+                        urlToNamespacRegister = id;
+                    }
+                    else if (label.EndsWith(nameSpace)) { 
+                        urlToNamespacRegister = id;
+                    }
 
-                    foreach (var dataset in item["NameSpaceDatasetUrls"])
-                    {
-                        if (dataset["DatasettId"].ToString() == datasetId)
-                            if (dataset["RedirectUrl"].ToString() != "")
-                                return dataset["RedirectUrl"].ToString();
+                    var nameSpaceDatasetUrls = item["NameSpaceDatasetUrls"];
+                    if(nameSpaceDatasetUrls != null) { 
+                        foreach (var dataset in item["NameSpaceDatasetUrls"])
+                        {
+                            if (dataset["DatasettId"].ToString() == datasetId)
+                                if (dataset["RedirectUrl"].ToString() != "")
+                                    return dataset["RedirectUrl"].ToString();
+                        }
                     }
                 }
             }
