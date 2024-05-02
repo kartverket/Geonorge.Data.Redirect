@@ -1,0 +1,38 @@
+# nonk8s
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
+metadata:
+  name: "Geonorge.Data.Redirect"
+  tags:
+  - "public"
+spec:
+  type: "website"
+  lifecycle: "production"
+  owner: "datadeling_og_distribusjon"
+  system: "geonorge"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Group"
+metadata:
+  name: "security_champion_Geonorge.Data.Redirect"
+  title: "Security Champion Geonorge.Data.Redirect"
+spec:
+  type: "security_champion"
+  parent: "land_security_champions"
+  members:
+  - "dagolav"
+  children:
+  - "resource:Geonorge.Data.Redirect"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Resource"
+metadata:
+  name: "Geonorge.Data.Redirect"
+  links:
+  - url: "https://github.com/kartverket/Geonorge.Data.Redirect"
+    title: "Geonorge.Data.Redirect på GitHub"
+spec:
+  type: "repo"
+  owner: "security_champion_Geonorge.Data.Redirect"
+  dependencyOf:
+  - "component:Geonorge.Data.Redirect"
