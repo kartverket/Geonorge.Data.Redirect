@@ -7,5 +7,5 @@ metadata:
 spec:
   type: website
   lifecycle: production
-  owner: group:default/geonorge
-  system: system:default/geonorge
+  owner: datadeling_og_distribusjon
+  system: geonorge
